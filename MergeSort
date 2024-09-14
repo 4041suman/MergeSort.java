@@ -1,0 +1,53 @@
+import java.util.*;
+import java.util.Arrays;
+class MergeSort {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter an array size : ");
+        int n= scan.nextInt();
+        System.out.println("Enter an values :");
+        int arr[] = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=scan.nextInt();
+        }
+        mergeSort(arr);
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void mergeSort(int arr[]){
+        int n=arr.length;
+        if(n<2){
+            return ;
+        }
+        int mid=n/2;
+        int left[]=new int[mid];
+        int right[] = new int[n-mid];
+        for(int i=0;i<mid;i++){
+            left[i]=arr[i];
+        }
+        for(int j=mid;j<n;j++){
+            right[j-mid]=arr[j]; 
+        }
+        mergeSort(left);
+        mergeSort(right);
+        merge(arr,left,right);
+    }
+    public static void merge(int arr[], int left[], int right[]){
+        int ans[] = new int[left.length+right.length];
+        int i=0,j=0,k=0;
+        while(i<left.length && j<right.length){
+            if(left[i]<right[j]){
+                ans[k++]=left[i++];
+            }
+            else{
+                ans[k++]=right[j++];
+            }
+        }
+        while(i<left.length){
+            ans[k++]=left[i++];
+        }
+        while(j<right.length){
+            ans[k++]=left[j++];
+        }
+    }
+}
